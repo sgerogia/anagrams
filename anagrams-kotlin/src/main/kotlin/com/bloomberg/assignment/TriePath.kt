@@ -1,26 +1,20 @@
 package com.bloomberg.assignment
 
-import java.util.*
 
 /**
  * Wrapper around a dictionary word.
  * Converts the characters into a lexicographically ordered trie path.
- * E.g. word 'test' becomes {e*1, s*1, t*2}
+ * E.g. word 'test' becomes {e, s, t, t}
  */
 data class TriePath(
         val word: String,
-        val path: Collection<Pair<Char, Int>>) {
+        val path: Collection<Char>) {
 
     companion object {
 
         fun fromWord(word: String): TriePath {
-            val triePath : TreeMap<Char, Int> = TreeMap()
-            word.toCharArray().forEach { c ->
-                var count = triePath.getOrPut(c, { 0 })
-                count += 1
-                triePath.put(c, count)
-            }
-            return TriePath(word, triePath.map { it.toPair() }.toList())
+            val sortedChars = word.toCharArray().sorted()
+            return TriePath(word, sortedChars)
         }
 
     }
@@ -28,33 +22,29 @@ data class TriePath(
     /**
      * Returns a copy of the path, advanced by one.
      * Examples:
-     * {e*1, s*1, t*2} -> {s*1, t*2}
-     * {e*2, s*1, t*2} -> {e*1, s*1, t*2}
+     * {e, s, t} -> {s, t}
+     * {e, e, s, t, t} -> {e, s, t, t}
      * {} -> {}
      */
     fun stepOne(): TriePath {
         if (path.isEmpty()) {
             return this
         }
-        val firstItem = path.first()
-        val newPath = if (firstItem.second > 1)
-                        mutableListOf(Pair(firstItem.first, firstItem.second - 1)) + path.drop(1)
-                        else path.drop(1)
-        return copy(path = newPath)
+        return copy(path = path.drop(1))
     }
 
     /**
      * Returns the next character in the path.
      * Examples:
-     * {e*1, s*1, t*2} -> e
-     * {e*2, s*1, t*2} -> e
+     * {e, s, t, t} -> e
+     * {e, e, s, t, t} -> e
      * {} -> null
      */
     fun nextChar(): Char? {
         if (path.isEmpty()) {
             return null
         }
-        return path.first().first
+        return path.first()
     }
 
     fun isEmpty(): Boolean {

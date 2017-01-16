@@ -1,9 +1,9 @@
 package com.bloomberg.assignment
 
-import org.junit.Test
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.contains
+import org.junit.Test
 
 
 class TriePathTest {
@@ -13,11 +13,7 @@ class TriePathTest {
         // arrange
         val path = TriePath.fromWord("test")
         // assert
-        assertThat(path.path, contains(
-                Pair('e', 1),
-                Pair('s', 1),
-                Pair('t', 2)
-        ))
+        assertThat(path.path, contains('e', 's', 't', 't'))
     }
 
     @Test
@@ -25,13 +21,7 @@ class TriePathTest {
         // arrange
         val path = TriePath.fromWord("anagram")
         // assert
-        assertThat(path.path, contains(
-                Pair('a', 3),
-                Pair('g', 1),
-                Pair('m', 1),
-                Pair('n', 1),
-                Pair('r', 1)
-        ))
+        assertThat(path.path, contains('a', 'a', 'a', 'g', 'm', 'n', 'r'))
     }
 
     @Test
@@ -41,12 +31,7 @@ class TriePathTest {
         val path2 = TriePath.fromWord("stop")
         val path3 = TriePath.fromWord("tops")
         // assert
-        assertThat(path1.path, contains(
-                Pair('o', 1),
-                Pair('p', 1),
-                Pair('s', 1),
-                Pair('t', 1)
-        ))
+        assertThat(path1.path, contains('o', 'p', 's', 't'))
         assertThat(path1.path, `is`(path2.path))
         assertThat(path1.path, `is`(path3.path))
         assertThat(path2.path, `is`(path3.path))
@@ -59,13 +44,7 @@ class TriePathTest {
         // act
         val newPath = path.stepOne()
         // assert
-        assertThat(newPath.path, contains(
-                Pair('a', 2),
-                Pair('g', 1),
-                Pair('m', 1),
-                Pair('n', 1),
-                Pair('r', 1)
-        ))
+        assertThat(newPath.path, contains('a', 'a', 'g', 'm', 'n', 'r'))
     }
 
     @Test
@@ -75,10 +54,7 @@ class TriePathTest {
         // act
         val newPath = path.stepOne()
         // assert
-        assertThat(newPath.path, contains(
-                Pair('s', 1),
-                Pair('t', 2)
-        ))
+        assertThat(newPath.path, contains('s', 't', 't'))
     }
 
     @Test
