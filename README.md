@@ -41,7 +41,7 @@ We could assume the median prime (13th prime is 46) as a more realistic value; i
 
 In other words this approach could lead to hash clashes for dictionaries with long words.
 
-## Trie-based
+### Trie-based
 
 A [trie](https://en.wikipedia.org/wiki/Trie) does not have the length restrictions described above and is well-suited
 for dictionary problems.
