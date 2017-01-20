@@ -47,6 +47,36 @@ class VectorRotateTest(val impl: VectorRotate) {
     }
 
     @Test
+    fun rotateNineByThree() {
+        // arrange
+        val vec = arrayOf("a", "b", "c", "d", "e", "f", "g", "h", "i")
+        // act
+        impl.rotateInPlace(vec, 3)
+        // assert
+        assertThat(vec, `is`(arrayOf("d", "e", "f", "g", "h", "i", "a", "b", "c")))
+    }
+
+    @Test
+    fun rotateNineByFive() {
+        // arrange
+        val vec = arrayOf("a", "b", "c", "d", "e", "f", "g", "h", "i")
+        // act
+        impl.rotateInPlace(vec, 5)
+        // assert
+        assertThat(vec, `is`(arrayOf("f", "g", "h", "i", "a", "b", "c", "d", "e")))
+    }
+
+    @Test
+    fun rotateNineBySeven() {
+        // arrange
+        val vec = arrayOf("a", "b", "c", "d", "e", "f", "g", "h", "i")
+        // act
+        impl.rotateInPlace(vec, 7)
+        // assert
+        assertThat(vec, `is`(arrayOf("h", "i", "a", "b", "c", "d", "e", "f", "g")))
+    }
+
+    @Test
     fun rotateEightBySeven() {
         // arrange
         val vec = arrayOf("a", "b", "c", "d", "e", "f", "g", "h")
