@@ -14,6 +14,7 @@ If your language provides a 'generate permutations' method do not use it, please
 > Symbols
 > * N: dictionary size
 > * x: Average dictionary word size in characters
+> * X: Maximum dictionary word size in characters
 
 There are 2 approaches which I could come up with.
 
@@ -41,6 +42,8 @@ We could assume the median prime (13th prime is 46) as a more realistic value; i
 
 In other words this approach could lead to hash clashes for dictionaries with long words.
 
+Collecting the groups of anagrams is a matter of iterating the hashtable (O(n))
+
 ### Trie-based
 
 A [trie](https://en.wikipedia.org/wiki/Trie) does not have the length restrictions described above and is well-suited
@@ -55,3 +58,7 @@ The sorted characters are then added in the trie (O(x)).
 This means that the total complexity of this approach is O(N(x + xlogx)) -> O(Nxlogx).
 
 This was chosen to be implemented as not having the restrictions of the hash-based solution.
+
+However, the downside of this approach is collecting the anagrams;
+a simple iteration of the trie is worst case (O(X^26)).
+This could be improved by maintaining at runtime a separate collection of trie nodes with anagrams.
